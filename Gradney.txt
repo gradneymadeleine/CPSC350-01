@@ -1,0 +1,33 @@
+Name: Madeleine Gradney
+Student ID: 0022
+CPSC 350-01
+
+
+Sum: 1568415731
+Mean: 5.22805e+08
+Variance: 3.90397e+165
+Standard Deviation: 6.24817e+82
+
+
+Probability of A: 2.55034e-09
+Probability of T: 1.27517e-09
+Probability of C: 1.27517e-09
+Probability of G: 1.27517e-09
+
+
+Probability of AA: 0.25
+Probability of AT: 0.25
+Probability of AC: 0
+Probability of AG: 0
+Probability of TA: 0
+Probability of TT: 0
+Probability of TC: 0
+Probability of TG: 0
+Probability of CA: 0.25
+Probability of CT: 0
+Probability of CC: 0
+Probability of CG: 0
+Probability of GA: 0
+Probability of GT: 0
+Probability of GC: 0
+Probability of GG: 0.25
