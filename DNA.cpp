@@ -3,7 +3,12 @@
 #include <cmath>
 using namespace std;
 
-
+// void toLowerCase(string & str){
+//   //makes strings lower case
+//   for (int i = 0; i < str.size(); i++){
+//     srt[i] = tolower(str[i]);
+//   }
+// }
 
 int main(int argc, char const *argv[]) {
   srand( time(NULL)); // reset rand
@@ -29,8 +34,6 @@ int main(int argc, char const *argv[]) {
     total_length += line.length();
     line_number++;
 
-
-
   }
 double mean = total_length/(double)line_number; //mean
 
@@ -44,8 +47,6 @@ double mean = total_length/(double)line_number; //mean
     double difference = (line_length-mean)*(line_length-mean); //length of line - the mean for variance
 
     difference_sq += difference;
-
-
 
   }
   inFile.close();
@@ -244,7 +245,9 @@ double mean = total_length/(double)line_number; //mean
   myfile << "Probability of GC: " << prob_gc << "\n";
   myfile << "Probability of GG: " << prob_gg << "\n";
 //Gaussian distribution
+inFile.open("DNATextFile.txt");
 srand( time(NULL));
+string dnaLine = ""; // blank string for 1000 dna
 for (int k =0; k <1000; k++){
   double a = rand()/(double)RAND_MAX;
   double b = rand()/(double)RAND_MAX;
@@ -252,7 +255,6 @@ for (int k =0; k <1000; k++){
   double D = stan_dev + C + mean;
   D = round(D);
 
-  string dnaLine = ""; // blank string for 1000 dna
   char prevLetter; //use previous letter to base next one
 
   if(a>=0 && a<.25){
@@ -274,7 +276,7 @@ for (int k =0; k <1000; k++){
 
   //cout << "First letter: " << dnaLine <<endl;
   // need to take into account the length D, then give the first letter a pair
-  for(int l=0; l<D; l++){ //the frequency of the dna
+  for(int l=0; l<D-1; l++){ //the frequency of the dna
     if(prevLetter == 'A'){
       int sumAs = num_of_aa + num_of_at +num_of_ac + num_of_ag;
       double freq_aa = double(num_of_aa)/sumAs;
@@ -400,17 +402,17 @@ for (int k =0; k <1000; k++){
         }
       //}
     }
-
-    cout << "DNA LINE: " << dnaLine << endl;
-    //cout << "previous letter: " << prevLetter << endl;
-    //cout << "a: " << a << endl;
-    //cout << "b: " << b << endl;
-    ofstream txtfile;
-    txtfile.open("DNATest.txt");
-    txtfile << "DNA Trees 4Ever!: " << dnaLine << "\n";
-
-
   }
+  dnaLine += "\n";
 }
+inFile.close();
+cout << "DNA LINE: " << dnaLine << endl;
+//cout << "previous letter: " << prevLetter << endl;
+//cout << "a: " << a << endl;
+//cout << "b: " << b << endl;
+ofstream txtfile;
+txtfile.open("Temp.txt");
+// txtfile << "DNA Trees 4Ever!: " << dnaLine << "\n";
+txtfile << dnaLine;
 return 0;
 }
