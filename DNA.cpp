@@ -38,21 +38,21 @@ int main(int argc, char const *argv[]) {
   {
     for(char c:line)
     {
-      if(c=='a')
+      if(c=='A')
       {
-        strUpper += "A";
+        strUpper += "a";
       }
-      else if(c=='t')
+      else if(c=='T')
       {
-        strUpper += "T";
+        strUpper += "t";
       }
-      else if(c=='c')
+      else if(c=='C')
       {
-        strUpper += "C";
+        strUpper += "c";
       }
-      else if(c=='g')
+      else if(c=='G')
       {
-        strUpper += "G";
+        strUpper += "g";
       }
       else
       {
@@ -87,15 +87,14 @@ while(loop){
   int num_of_gc =0;
   int num_of_gg =0;
   int total_pair;
-  int num_of_a = 0;
-  int num_of_t = 0;
-  int num_of_c = 0;
-  int num_of_g = 0;
+  int num_of_a;
+  int num_of_t;
+  int num_of_c;
+  int num_of_g;
   inFile.open(filename);
 
       while(std::getline(inFile, line))
       { //reads file line by line
-        cout << "hello " << endl;
         total_length += line.length();
         line_number++;
 
@@ -120,7 +119,8 @@ while(loop){
       double stan_dev = sqrt(variance); //standard deviation
 
 
-      while(std::getline(inFile, line)){
+      while(std::getline(inFile, line))
+      {
         int line_length = line.length();
         for(int i=0; i<line_length;++i){
           //go through file to get a
@@ -139,7 +139,6 @@ while(loop){
          }
 
       }
-      
       double prob_a = num_of_a/(double)total_length;
       double prob_t = num_of_t/(double)total_length;
       double prob_c = num_of_c/(double)total_length;
