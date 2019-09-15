@@ -139,6 +139,7 @@ while(loop){
          }
 
       }
+      
       double prob_a = num_of_a/(double)total_length;
       double prob_t = num_of_t/(double)total_length;
       double prob_c = num_of_c/(double)total_length;
