@@ -1,18 +1,19 @@
 Name: Madeleine Gradney
 Student ID: 0022
+gradney@chapman.edu
 CPSC 350-01
 
 
-Sum: 1568415731
-Mean: 5.22805e+08
-Variance: 3.90397e+165
-Standard Deviation: 6.24817e+82
+Sum: 10
+Mean: 3.33333
+Variance: 1.55556
+Standard Deviation: 1.24722
 
 
-Probability of A: 2.55034e-09
-Probability of T: 1.27517e-09
-Probability of C: 1.27517e-09
-Probability of G: 1.27517e-09
+Probability of A: 0.4
+Probability of T: 0.2
+Probability of C: 0.2
+Probability of G: 0.2
 
 
 Probability of AA: 0.25

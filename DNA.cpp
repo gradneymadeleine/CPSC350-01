@@ -17,8 +17,8 @@ int main(int argc, char const *argv[]) {
     exit(1);
   }
 
-  int total_length;
-  int line_number;
+  int total_length = 0;
+  int line_number = 0;
 
 
 
@@ -32,11 +32,11 @@ int main(int argc, char const *argv[]) {
 
 
   }
-double mean = total_length/(double)line_number;
+double mean = total_length/(double)line_number; //mean
 
   inFile.close(); //need to reread an go back to top of file
   inFile.open("DNATextFile.txt");
-  double difference_sq; //line - mean
+  double difference_sq = 0.0; //line - mean
   while(std::getline(inFile, line))
   { //reads file line by line
     int line_length = line.length();
@@ -52,7 +52,7 @@ double mean = total_length/(double)line_number;
   inFile.open("DNATextFile.txt");
   double variance = difference_sq/line_number; //variance
   double stan_dev = sqrt(variance); //standard deviation
-  
+
   int num_of_a = 0;
   int num_of_t = 0;
   int num_of_c = 0;
@@ -216,6 +216,7 @@ double mean = total_length/(double)line_number;
   myfile.open("Gradney.txt");
   myfile << "Name: Madeleine Gradney\n";
   myfile << "Student ID: 0022\n";
+  myfile << "gradney@chapman.edu\n";
   myfile << "CPSC 350-01\n\n\n";
 
   myfile << "Sum: " <<total_length << "\n";
@@ -242,25 +243,166 @@ double mean = total_length/(double)line_number;
   myfile << "Probability of GT: " << prob_gt << "\n";
   myfile << "Probability of GC: " << prob_gc << "\n";
   myfile << "Probability of GG: " << prob_gg << "\n";
-
-
 //Gaussian distribution
+for (int k =0; k <1000; k++){
+  double a = rand()/(double)RAND_MAX;
+  double b = rand()/(double)RAND_MAX;
+  double C = sqrt(-2 * log(a))*cos(2*M_PI*b);
+  double D = stan_dev + C + mean;
+  D = round(D);
 
-double a = rand()/(double)RAND_MAX;
-double b = rand()/(double)RAND_MAX;
-double C = sqrt(-2 * log(a))*cos(2*M_PI*b);
-double D = stan_dev + C + mean;
+  string dnaLine = ""; // blank string for 1000 dna
+  char prevLetter; //use previous letter to base next one
 
+  if(a>=0 && a<.25){
+    dnaLine+='A';
+    prevLetter = 'A';
+  }
+  else if(a>=.25 && a<.50){
+    dnaLine += 'T';
+    prevLetter = 'T';
+  }
+  else if(a>= .50 && a<.75){
+    dnaLine+= 'C';
+    prevLetter = 'C';
+  }
+  else if(a>=.75 && a<1){
+    dnaLine+= 'G';
+    prevLetter = 'G';
+  }
+  //cout << "DNA Line: " << dnaLine <<endl;
+  // need to take into account the length D, then give the first letter a pair
+  for(int l=0; l<D; l++){ //the frequency of the dna
+    if(prevLetter == 'A'){
+      int sumAs = num_of_aa + num_of_at +num_of_ac + num_of_ag;
+      double freq_aa = double(num_of_aa)/sumAs;
+      double freq_at = double(num_of_at)/sumAs;
+      double freq_ac = double(num_of_ac)/sumAs;
+      double freq_ag = double(num_of_ag)/sumAs;
+      if(b>=0 && b<.25){
+        if(b< freq_aa){
+        dnaLine += 'A';
+        prevLetter = 'A';
+      }
+    }
+    else if (b>=.25 && b<.50){
+      if(b<freq_at+ freq_aa){
+        dnaLine += 'T';
+        prevLetter = 'T';
+      }
+  }
+  else if(b>=.50 && b<.75){
+    if(b< freq_aa+ freq_at+ freq_ac){
+      dnaLine += 'C';
+      prevLetter = 'C';
+    }
+  }
+  else if(b>=.75 && b<1){
+    if(b< freq_aa + freq_at + freq_ac + freq_ag ){
+      dnaLine += 'G';
+      prevLetter = 'G';
+    }
+  }
+  }
+    if(prevLetter == 'T'){
+      int sumTs = num_of_ta + num_of_tt+ num_of_tc+ num_of_tg;
+      double freq_ta = double(num_of_ta)/sumTs;
+      double freq_tt = double(num_of_tt)/sumTs;
+      double freq_tc = double(num_of_tc)/sumTs;
+      double freq_tg = double(num_of_tg)/sumTs;
+      if(b>=0 && b<.25){
+        if(b< freq_ta){
+          dnaLine += 'A';
+          prevLetter = 'A';
+        }
+      }
+      else if (b>=.25 && b<.50){
+        if(b< freq_tt + freq_ta){
+          dnaLine += 'T';
+          prevLetter = 'T';
+        }
+      }
+      else if(b>=.50 && b<.75){
+        if(b<freq_tc+ freq_ta +freq_tt){
+          dnaLine += 'C';
+          prevLetter = 'C';
+        }
+      }
+      else if(b>=.75 && b<1){
+        if(b< freq_tg+ freq_ta +freq_tt+freq_tc){
+          dnaLine += 'G';
+          prevLetter = 'G';
+        }
+      }
+    }
+    if(prevLetter == 'C'){
+      int sumCs = num_of_ca + num_of_ct + num_of_cc +num_of_cg;
+      double freq_ca = double(num_of_ca)/sumCs;
+      double freq_ct = double(num_of_ct)/sumCs;
+      double freq_cc = double(num_of_cc)/sumCs;
+      double freq_cg = double(num_of_cg)/sumCs;
+      if(b>=0 && b<.25){
+        if(b< freq_ca ){
+          dnaLine += 'A';
+          prevLetter = 'A';
+        }
+      }
+      else if (b>=.25 && b<.50){
+        if(b< freq_ct +freq_ca  ){
+          dnaLine += 'T';
+          prevLetter = 'T';
+        }
+      }
+      else if(b>=.50 && b<.75){
+        if(b<freq_cc + freq_ct + freq_ca){
+          dnaLine += 'C';
+          prevLetter = 'C';
+        }
+      }
+      else if(b>=.75 && b<1){
+        if(b <freq_cg +freq_ca +freq_ct + freq_cc){
+          dnaLine += 'G';
+          prevLetter = 'G';
+        }
+      }
 
-cout << "a: " << a << endl;
-cout << "b: " << b << endl;
-cout << "C: " << C << endl;
-cout << "D: " << round(D) << endl;
+    }
+    if(prevLetter == 'G'){
+      int sumGs = num_of_ga + num_of_gt +num_of_gc +num_of_gg;
+      double freq_ga = double(num_of_ga)/sumGs;
+      double freq_gt = double(num_of_gt)/sumGs;
+      double freq_gc = double(num_of_gc)/sumGs;
+      double freq_gg = double(num_of_gg)/sumGs;
+      if(b>=0 && b<.25){
+        if(b< freq_ga){
+          dnaLine += 'A';
+          prevLetter = 'A';
+        }
 
+      }
+      else if (b>=.25 && b<.50){
+        if(b<freq_gt + freq_ga){
+          dnaLine += 'T';
+          prevLetter = 'T';
+        }
+      }
+      else if(b>=.50 && b<.75){
+        if(b<freq_gc + freq_ga + freq_gt){
+          dnaLine += 'C';
+          prevLetter = 'C';
+        }
+      }
+      else if(b>=.75 && b<1){
+        if(b<freq_gg + freq_ga + freq_gt + freq_gc){
+          dnaLine += 'G';
+          prevLetter = 'G';
+        }
+      }
+    }
 
+    cout << "DNA 1000 LINE: " << dnaLine << endl;
 
-
-
-
-  return 0;
+  }
+}
+return 0;
 }
