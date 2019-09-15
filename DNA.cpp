@@ -13,6 +13,61 @@ int main(int argc, char const *argv[]) {
   bool loop = true; // for another file
   string filename;
   string line;
+
+  ifstream inFile; // open file
+  ofstream myfile; //creating output file stream
+
+  if(argc > 1)
+  {
+    filename = argv[1];
+  }
+
+  inFile.open(filename);
+  if (!inFile)
+  { //check if file is there
+    cout << "Unable to open file. Does not exist";
+    exit(1);
+  }
+  else {
+    cout << "Opened file: \n" << filename << endl;
+  }
+
+
+  string strUpper; //to change uppercase into lowercase (could not figure out tolower())
+  while(getline(inFile, line))
+  {
+    for(char c:line)
+    {
+      if(c=='a')
+      {
+        strUpper += "A";
+      }
+      else if(c=='t')
+      {
+        strUpper += "T";
+      }
+      else if(c=='c')
+      {
+        strUpper += "C";
+      }
+      else if(c=='g')
+      {
+        strUpper += "G";
+      }
+      else
+      {
+        strUpper += c;
+      }
+    }
+    strUpper += "\n";
+  }
+ inFile.close();
+
+ myfile.open(filename); //output file
+ myfile << strUpper;
+ myfile.close();
+
+while(loop){
   int total_length = 0;
   int line_number = 0;
   int num_of_aa =0;
@@ -36,70 +91,16 @@ int main(int argc, char const *argv[]) {
   int num_of_t = 0;
   int num_of_c = 0;
   int num_of_g = 0;
-  ifstream inFile; // open file
-  ofstream myfile; //creating output file stream
-
-
   inFile.open(filename);
-  string strUpper;
-  while(getline(inFile, line))
-  {
-    for(char c:line)
-    {
-      if(c=='A')
-      {
-        strUpper += "a";
-      }
-      else if(c=='T')
-      {
-        strUpper += "t";
-      }
-      else if(c=='C')
-      {
-        strUpper += "c";
-      }
-      else if(c=='G')
-      {
-        strUpper += "g";
-      }
-      else
-      {
-        strUpper += c;
-      }
-    }
-    strUpper += "\n";
-  }
- inFile.close();
-
- myfile.open(filename);
- myfile << strUpper;
- myfile.close();
-
-
-
- inFile.open(filename);
- if (!inFile)
- { //check if file is there
-   cout << "Unable to open file. Does not exist";
-   exit(1);
- }
- else {
-   cout << "Opened file: \n" << filename << endl;
- }
-
- if(argc > 1)
- {
-   filename = argv[1];
- }
-while(loop){
 
       while(std::getline(inFile, line))
       { //reads file line by line
+        cout << "hello " << endl;
         total_length += line.length();
         line_number++;
 
       }
-    double mean = total_length/(double)line_number; //mean
+      double mean = total_length/(double)line_number; //mean
 
       inFile.close(); //need to reread an go back to top of file
       inFile.open(filename);
@@ -208,7 +209,6 @@ while(loop){
           else if(line[j] == 'g' && line[j+1] == 'g'){
             num_of_gg++;
           }
-      cout << "AA" << num_of_aa << endl;
       }
     }
 
@@ -237,7 +237,7 @@ while(loop){
     double prob_gg = num_of_gg/(double)total_pair;
 
 
-    cout << "Sum: " <<total_length << endl;
+    cout << "Sum: " << total_length << endl;
     cout << "Mean: " << mean << endl;
     cout << "Variance: " << variance << endl;
     cout << "Standard Deviation: " << stan_dev << endl;
@@ -480,6 +480,6 @@ while(loop){
     exit(EXIT_SUCCESS);
     return 0;
   }
-  
+
 }
 }
